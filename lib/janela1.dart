@@ -19,7 +19,7 @@ class Janela1 extends StatelessWidget {
             child: Opacity(
               opacity: 0.8,
               child: Image.asset(
-                'assets/imagens/palhaco.png',
+                'assets/imagens/cat2.jpg',
                 //color: const Color.fromARGB(40, 244, 67, 54),
               ),
             ),

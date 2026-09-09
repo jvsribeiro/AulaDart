@@ -1,15 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:tabuada/pergunta.dart';
-import 'package:tabuada/questoes.dart';
 
-class Janela2 extends StatelessWidget {
+import 'pergunta.dart';
+import 'questoes.dart';
+
+class Janela2 extends StatefulWidget {
   const Janela2({
     super.key,
   });
 
   @override
+  State<Janela2> createState() => _Janela2State();
+}
+
+class _Janela2State extends State<Janela2> {
+  int indice = 0;
+
+  @override
   Widget build(BuildContext context) {
-    Pergunta teste1 = questoes[1];
+    Pergunta perguntaAtual = questoes[indice];
 
     return Scaffold(
       body: Column(
@@ -19,41 +27,50 @@ class Janela2 extends StatelessWidget {
             child: Opacity(
               opacity: 0.8,
               child: Image.asset(
-                'assets/imagens/palhaco_ouve.png',
-                //color: const Color.fromARGB(40, 244, 67, 54),
+                'assets/imagens/cat.png',
               ),
             ),
           ),
-          Text(teste1.texto),
+          Text(perguntaAtual.texto),
           const SizedBox(
             height: 10,
           ),
-          ElevatedButton(
-            onPressed: () {},
-            child: Text(teste1.respostas[0]),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          ElevatedButton(
-            onPressed: () {},
-            child: Text(teste1.respostas[1]),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          ElevatedButton(
-            onPressed: () {},
-            child: Text(teste1.respostas[2]),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          ElevatedButton(
-            onPressed: () {},
-            child: Text(teste1.respostas[3]),
-          ),
+          ...perguntaAtual.embaralha().map((resposta) {
+            return BotaoResposta(
+              chamar: () {
+                setState(() {
+                  if (indice < questoes.length - 1) {
+                    indice++;
+                  }
+                });
+                print('Apertado: $resposta');
+              },
+              texto: resposta,
+            );
+          }),
         ],
+      ),
+    );
+  }
+}
+
+class BotaoResposta extends StatelessWidget {
+  const BotaoResposta({
+    super.key,
+    required this.texto,
+    required this.chamar,
+  });
+
+  final String texto;
+  final Function() chamar;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ElevatedButton(
+        onPressed: chamar,
+        child: Text(texto),
       ),
     );
   }

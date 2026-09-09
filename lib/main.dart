@@ -18,7 +18,6 @@ class Controle extends StatefulWidget {
 class _ControleState extends State<Controle> {
   var janela = 'um';
 
-  // criação de muda
   void muda() {
     setState(() {
       janela = 'dois';
@@ -28,7 +27,6 @@ class _ControleState extends State<Controle> {
   @override
   Widget build(BuildContext context) {
     Widget atual = Janela1(muda);
-
     if (janela == 'um') {
       atual = Janela1(muda);
     } else {
